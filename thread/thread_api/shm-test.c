@@ -9,6 +9,6 @@ void Thello(int id) {
 
 int main() {
   for (int i = 0; i < 10; i++) {
-    create(Thello);
+    create(Thello,NULL);
   }
 }

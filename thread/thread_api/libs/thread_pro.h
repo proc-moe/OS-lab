@@ -14,6 +14,8 @@ struct thread {
   void (*entry)(int);
 };
 
+typedef void(*entry)(int);
+
 struct thread tpool[NTHREAD], *tptr = tpool;
 
 void *wrapper(void *arg) {
@@ -27,7 +29,7 @@ void create(void *fn, pthread_attr_t *tattr) {
   *tptr = (struct thread) {
     .id = tptr - tpool + 1,
     .status = T_LIVE,
-    .entry = fn,
+    .entry = (entry)fn,
   };
   pthread_create(&(tptr->thread), tattr, wrapper, tptr);
   ++tptr;
